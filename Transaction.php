@@ -47,7 +47,10 @@ class Transaction {
             $stmt->execute(array(":from" => $from));
             $availableAmount = (int) $stmt->fetchColumn();
             $stmt->closeCursor();
- 
+            
+            if ($amount < 0) {
+                return "ห้ามใส่ติดลบ";
+            }
             // ---> to do here ตรวจสอบว่ามีเงินที่จะโอนมีน้อยกว่าในบัญชีหรือไม่
             if ($availableAmount < $amount) {
                  return "ยอดเงินของคุณไม่เพียงพอ";
